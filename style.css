@@ -40,7 +40,8 @@ body {
 }
 
 .open-modal-button,
-.submit-book {
+.submit-book,
+.read-toggle {
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
@@ -79,7 +80,8 @@ body {
   grid-area: 1/2/2/3;
 }
 
-.modal-close {
+.modal-close,
+.book-delete {
   grid-area: 1/3/2/4;
   color: #aaa;
   font-size: 2rem;
@@ -90,7 +92,9 @@ body {
 }
 
 .modal-close:hover,
-.modal-close:focus {
+.modal-close:focus,
+.book-delete:hover,
+.book-delete:focus {
   color: black;
   cursor: pointer;
 }
@@ -124,7 +128,44 @@ body {
 
 .book-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
   overflow-y: auto;
+  padding: 1rem;
 }
+
+.book-card {
+  display: grid;
+  grid-template: repeat(5,max-content) / 1fr;
+  align-items: center;
+  justify-items: center;
+  padding: 1rem;
+  background-color: #b1ffb4;
+  border: 1px solid rgb(74, 74, 74);
+  border-radius: 1rem;
+  box-shadow: 2px 2px 2px rgb(40, 40, 40);
+}
+
+.book-card .title {
+  padding: 1rem 0 2rem;
+}
+
+.book-card .year {
+  padding: 0.5rem 0;
+}
+
+.book-card .button-wrapper {
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.book-card .read-toggle {
+  justify-self: right;
+  background-color: #c6c6c6;
+  color: black;
+  border: 1px #888 solid;
+}
+
+
