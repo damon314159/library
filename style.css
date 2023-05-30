@@ -15,7 +15,7 @@ html, body {
 }
 
 body {
-  padding: 2rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: center;
 }
@@ -27,7 +27,7 @@ body {
 
 .library-title {
   font-size: 2.5rem;
-  margin: 1rem 0;
+  margin: 2rem 0 1rem;
   text-align: center;
 }
 
@@ -51,7 +51,7 @@ body {
 }
 
 .modal {
-  display: block;
+  display: none;
   position: fixed;
   z-index: 1;
   left: 0;
