@@ -70,9 +70,19 @@ function updateDisplay() {
   }
 }
 
-(function addModalListener() {
+(function() {
+  const modal = document.querySelector(".modal");
+  modal.style.display = "none" //hidden at start
+
+  const toggleModal = function() {
+    modal.style.display = modal.style.display=="none"? "block" : "none";
+  };
+
+  console.log('hi');
   const modalBtn = document.querySelector(".open-modal-button");
-  modalBtn.addEventListener("click", e => {
-    document.querySelector(".modal").style.display = "none"? "block" : "none"
-  });
+  modalBtn.addEventListener("click", ()=>toggleModal());
+
+  console.log('hi2');
+  const modalClose = document.querySelector(".modal-close");
+  modalClose.addEventListener("click", ()=>toggleModal());
 })();
