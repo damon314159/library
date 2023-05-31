@@ -10,6 +10,21 @@ function Book(title, author, year, isRead, node) {
   this.node = node;
 }
 
+(function(){
+  Book.prototype.toggleRead = function() {
+    console.log('this, node is', this, this.node)
+    this.isRead = !this.isRead;
+    this.node.querySelector(".status span").innerHTML = (this.isRead ? "" : "not ");
+  }
+
+  Book.prototype.deleteBook = function() {
+    this.node.remove();
+    delete myLibrary[this.node.id];
+  }
+})();
+
+
+
 function addBookToLibrary(title, author, year, isRead) {
 
   const getId = function() { //find smallest unused id number
@@ -33,14 +48,15 @@ function addBookToLibrary(title, author, year, isRead) {
       + `<p class=\"year\">Written in <span>${year}</span></p>`
       + `<p class=\"status\">I've <span>${isRead?"":"not "}</span>read this one</p>`
       + `<div class=\"button-wrapper\">`
-      +   `<button class=\"read-toggle\">Read it?</button>`
-      +   `<button class=\"book-delete\">&#128465;</button>`
+      +   `<button class=\"read-toggle\" onclick=\"myLibrary[\`book${id}\`].toggleRead();\">Read it?</button>`
+      +   `<button class=\"book-delete\" onclick=\"myLibrary[\`book${id}\`].deleteBook();\">&#128465;</button>`
       + `</div>`;
     return card;
   }
   const node = createCard();
 
   myLibrary[`book${id}`] = new Book(title, author, year, isRead, node);
+  updateDisplay();
 }
 
 function updateDisplay() {
@@ -54,3 +70,9 @@ function updateDisplay() {
   }
 }
 
+(function addModalListener() {
+  const modalBtn = document.querySelector(".open-modal-button");
+  modalBtn.addEventListener("click", e => {
+    document.querySelector(".modal").style.display = "none"? "block" : "none"
+  });
+})();
