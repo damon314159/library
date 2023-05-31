@@ -80,7 +80,7 @@ function addBookToLibrary(event) {
 }
 
 
-const toggleModal = (function() { //IIFE to initialize open/close buttons for the form modal
+const toggleModal = (function() { //IIFE to initialize open/close buttons for the form modal, returns toggle func for use later
   const modal = document.querySelector(".modal");
   modal.style.display = "none" //hidden at start
 
