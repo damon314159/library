@@ -12,7 +12,6 @@ function Book(title, author, year, isRead, node) { //constructor
 
 (function(){ //IIFE to enable the buttons on a given book via prototype
   Book.prototype.toggleRead = function() { //allows user to change if they've read it
-    console.log('this, node is', this, this.node)
     this.isRead = !this.isRead;
     this.node.querySelector(".status span").innerHTML = (this.isRead ? "" : "not ");
   }
