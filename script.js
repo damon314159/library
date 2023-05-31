@@ -1,8 +1,8 @@
 "use strict"
 
-const myLibrary = {};
+const myLibrary = {}; //stores book objects
 
-function Book(title, author, year, isRead, node) {
+function Book(title, author, year, isRead, node) { //constructor
   this.title = title;
   this.author = author;
   this.year = year;
@@ -10,8 +10,8 @@ function Book(title, author, year, isRead, node) {
   this.node = node;
 }
 
-(function(){
-  Book.prototype.toggleRead = function() {
+(function(){ //IIFE to enable the buttons on a given book via prototype
+  Book.prototype.toggleRead = function() { //allows user to change if they've read it
     console.log('this, node is', this, this.node)
     this.isRead = !this.isRead;
     this.node.querySelector(".status span").innerHTML = (this.isRead ? "" : "not ");
@@ -38,6 +38,17 @@ function addBookToLibrary(title, author, year, isRead) {
   }
   const id=getId();
 
+  const updateDisplay = function() {
+    const cards = document.querySelectorAll(".book-card");
+    cards.forEach(e => e = e.id); //list of currently displayed ids
+    const toDisplay = Object.keys(myLibrary).filter(e => !Array.from(cards).includes(e)); //ids of books to be added
+  
+    const bookContainer = document.querySelector(".book-container");
+    for (let e of toDisplay) {
+      bookContainer.appendChild(myLibrary[e].node);
+    }
+  }
+
   const createCard = function() {
     const card = document.createElement("div")
     card.id = `book${id}`;
@@ -55,22 +66,12 @@ function addBookToLibrary(title, author, year, isRead) {
   }
   const node = createCard();
 
-  myLibrary[`book${id}`] = new Book(title, author, year, isRead, node);
-  updateDisplay();
+  myLibrary[`book${id}`] = new Book(title, author, year, isRead, node); //construct new book in library
+  updateDisplay(); //add node to page
 }
 
-function updateDisplay() {
-  const cards = document.querySelectorAll(".book-card");
-  cards.forEach(e => e = e.id); //list of currently displayed ids
-  const toDisplay = Object.keys(myLibrary).filter(e => !Array.from(cards).includes(e)); //ids of books to be added
 
-  const bookContainer = document.querySelector(".book-container");
-  for (let e of toDisplay) {
-    bookContainer.appendChild(myLibrary[e].node);
-  }
-}
-
-(function() {
+(function() { //IIFE to initialize open/close buttons for the form modal
   const modal = document.querySelector(".modal");
   modal.style.display = "none" //hidden at start
 
