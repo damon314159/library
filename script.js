@@ -25,7 +25,14 @@ function Book(title, author, year, isRead, node) { //constructor
 
 
 
-function addBookToLibrary(title, author, year, isRead) {
+function addBookToLibrary(event) {
+  event.preventDefault();
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const year = document.getElementById("year").value;
+  const isRead = document.getElementById("isRead").checked;
+  // document.querySelector("form").reset();
+  toggleModal(true);
 
   const getId = function() { //find smallest unused id number
     const idsUsed = new Set;
@@ -68,22 +75,26 @@ function addBookToLibrary(title, author, year, isRead) {
 
   myLibrary[`book${id}`] = new Book(title, author, year, isRead, node); //construct new book in library
   updateDisplay(); //add node to page
+
+  return false; //stops a reload
 }
 
 
-(function() { //IIFE to initialize open/close buttons for the form modal
+const toggleModal = (function() { //IIFE to initialize open/close buttons for the form modal
   const modal = document.querySelector(".modal");
   modal.style.display = "none" //hidden at start
 
-  const toggleModal = function() {
-    modal.style.display = modal.style.display=="none"? "block" : "none";
+  const toggleModal = function(clear=false) {
+    modal.style.display = modal.style.display == "none"? "block" : "none";
+    if (clear==true) {
+      document.querySelector("form").reset();
+    }
   };
 
-  console.log('hi');
   const modalBtn = document.querySelector(".open-modal-button");
-  modalBtn.addEventListener("click", ()=>toggleModal());
-
-  console.log('hi2');
   const modalClose = document.querySelector(".modal-close");
-  modalClose.addEventListener("click", ()=>toggleModal());
+  modalBtn.addEventListener("click", ()=>toggleModal());
+  modalClose.addEventListener("click", ()=>toggleModal(true));
+
+  return toggleModal;
 })();
